@@ -1,0 +1,15 @@
+[gd_resource type="Shortcut" load_steps=3 format=3 uid="uid://cgtvp6v2lyi08"]
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_f6vbr"]
+button_index = 6
+
+[sub_resource type="InputEventMouseButton" id="InputEventMouseButton_w2t2d"]
+shift_pressed = true
+button_mask = 8
+position = Vector2(217, 15)
+global_position = Vector2(226, 61)
+button_index = 4
+pressed = true
+
+[resource]
+events = [SubResource("InputEventMouseButton_f6vbr"), SubResource("InputEventMouseButton_w2t2d")]

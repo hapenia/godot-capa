@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://h2c3p38pfxxd"]
+
+[ext_resource type="Script" uid="uid://b75td6dyestis" path="res://addons/capa/editor/timeline_bar.gd" id="1_igb6b"]
+[ext_resource type="Script" uid="uid://bwsnw576wdiip" path="res://addons/capa/timeline_data.gd" id="2_hmhid"]
+
+[sub_resource type="Resource" id="Resource_hmhid"]
+script = ExtResource("2_hmhid")
+status = true
+enabled = true
+metadata/_custom_type_script = "uid://bwsnw576wdiip"
+
+[sub_resource type="Resource" id="Resource_ilpuu"]
+script = ExtResource("2_hmhid")
+status = true
+frame_idx = 50
+metadata/_custom_type_script = "uid://bwsnw576wdiip"
+
+[sub_resource type="Resource" id="Resource_wmidv"]
+script = ExtResource("2_hmhid")
+status = true
+enabled = true
+frame_idx = 75
+metadata/_custom_type_script = "uid://bwsnw576wdiip"
+
+[node name="TimelineBar" type="PanelContainer"]
+clip_contents = true
+custom_minimum_size = Vector2(0, 24)
+offset_right = 1152.0
+offset_bottom = 24.0
+script = ExtResource("1_igb6b")
+active_color = Color(0.3882353, 0.5764706, 1, 1)
+disactive_color = Color(0.8627451, 0.078431375, 0.23529412, 1)
+mark_color = Color(1, 1, 1, 0.49019608)
+zoom = 0.25
+latest_frame_idx = 283
+data = Array[ExtResource("2_hmhid")]([SubResource("Resource_hmhid"), SubResource("Resource_ilpuu"), SubResource("Resource_wmidv")])
