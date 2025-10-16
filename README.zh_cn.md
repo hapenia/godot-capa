@@ -5,7 +5,7 @@ Godot 的基于 Capability 的 Gameplay 系统插件。提供基于 Capability �
 
 # 什么是 Capability?
 
-Capability 是 Hazelight 工作室在开发 Split 时使用的一种 Gameplay 代码组织模式。
+Capability 是 Hazelight 工作室在开发《双影奇境》时使用的一种 Gameplay 代码组织模式。
 
 Capabilities可以被视为ECS中System的一个远房表亲，因为两者都负责行为，但Capabilities是用于GameObject-Component结构中的。
 
