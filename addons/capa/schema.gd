@@ -6,11 +6,13 @@ const DEBUGGER_MESSAGE_PREFIX := "capa"
 static func capamsg(str: String):
 	return DEBUGGER_MESSAGE_PREFIX + ":" + str
 
+
 const MSG_CAPABILITY_BOARD_DATA_REQUESTED = "capa:capability_board_data_requested"
 const MSG_CAPABILITY_BOARD_DATA = "capa:capability_board_data"
 const MSG_CAPABILITY_DATA = "capa:capability_data"
 const MSG_PHYSICS_FRAME_IDX = "capa:physics_frame_idx"
 const MSG_INSPECT_OBJECT = "capa:inspect"
+
 
 static func _create_capability_tree_node(board: CapabilityBoard, n: Node) -> Dictionary:
 	var children = []
@@ -25,8 +27,9 @@ static func _create_capability_tree_node(board: CapabilityBoard, n: Node) -> Dic
 		"children": children,
 	}
 
+
 static func create_capability_board_data(board: CapabilityBoard) -> Array:
-	# 递归构建字典树，将子节点存到 children 键中
+	# Recursively build dictionary tree, storing child nodes in the children key
 	var tree = _create_capability_tree_node(board, board)
 
 	# # collect children capabilities

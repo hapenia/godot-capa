@@ -1,4 +1,4 @@
-[gd_resource type="Shortcut" load_steps=3 format=3 uid="uid://bp36vygqbbvwl"]
+[gd_resource type="Shortcut" format=3 uid="uid://bp36vygqbbvwl"]
 
 [sub_resource type="InputEventMouseButton" id="InputEventMouseButton_3k4wv"]
 button_index = 7
