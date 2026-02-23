@@ -1,6 +1,7 @@
 @tool
 @icon("./trigger.svg")
-class_name Trigger extends Node
+class_name Trigger
+extends Node
 
 @export var target: Node:
 	set(v):
@@ -12,31 +13,54 @@ class_name Trigger extends Node
 		update_configuration_warnings()
 var trigger: bool = false
 
+# Internal flag to track if trigger was activated in the current frame
+var _triggered_this_frame: bool = false
+# Flag to preserve the trigger state after processing
+var _processed_trigger_state: bool = false
+
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings = []
 	if not target:
-		warnings.append("Target 不能为空")
+		warnings.append("Target cannot be empty")
 		return PackedStringArray(warnings)
 	if not target.has_signal(signal_name):
-		warnings.append("Target 没有所需的信号 %s" % signal_name)
+		warnings.append("Target does not have the required signal %s" % signal_name)
 	return PackedStringArray(warnings)
 
 
 func _ready() -> void:
-	if Engine.is_editor_hint(): return
-	if not target: return
+	if Engine.is_editor_hint():
+		return
+	if not target:
+		return
 	target.connect(signal_name, _trigger)
+	# Register this trigger with the Capa singleton
+	Capa.register_trigger(self)
+
+
+func _exit_tree() -> void:
+	# Unregister this trigger from the Capa singleton
+	Capa.unregister_trigger(self)
+
 
 func _trigger():
-	if Engine.is_editor_hint(): return
-	# since now is in a gap betweens physics frames, so we need to await twice to get next physics frame
-	# ensure trigger is true in next physics frame, and false in next next physics frame
-	
-	# Time: now|await#0->|await#1------------->|
-	# Process: --pending-> Process#1 --pending-> Process#2
-	# trigger: true ------ Process#1 --------- false	
-	trigger = true
-	await get_tree().physics_frame
-	await get_tree().physics_frame
-	trigger = false
+	if Engine.is_editor_hint():
+		return
+	# Set the triggered flag for this frame, will be processed in the next physics process
+	_triggered_this_frame = true
+
+
+# Process the triggered state - called by Capa in the correct order
+func process_triggered_state():
+	# Apply the triggered state from the previous frame to the current trigger state
+	_processed_trigger_state = _triggered_this_frame
+
+	# Actually update the public trigger property
+	trigger = _processed_trigger_state
+
+
+# Reset the trigger state for the next frame
+func reset_trigger_state():
+	# This is called after all processing is done in the frame
+	_triggered_this_frame = false

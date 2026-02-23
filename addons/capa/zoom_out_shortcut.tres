@@ -1,4 +1,4 @@
-[gd_resource type="Shortcut" load_steps=2 format=3 uid="uid://dmhekgpweu272"]
+[gd_resource type="Shortcut" format=3 uid="uid://dmhekgpweu272"]
 
 [sub_resource type="InputEventMouseButton" id="InputEventMouseButton_6ws3u"]
 command_or_control_autoremap = true

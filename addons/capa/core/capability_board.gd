@@ -1,37 +1,52 @@
 @icon("./capability_board.svg")
-class_name CapabilityBoard extends Node
+class_name CapabilityBoard
+extends Node
 
-## 启用跟踪
+## Enable tracking
 @export var enable_tracking: bool = true
-## 在调试器中自动跟踪
+## Auto track in debugger
 @export var auto_track_in_debugger: bool = false
 
-var _locks: Dictionary[StringName, Array] = {}
+var _locks: Dictionary[StringName, Array] = { }
 var _capabilities: Array[Capability] = []
 
-# 对指定的标签进行加锁。
+
+# Lock a specified tag.
 func block(tag: StringName, cap: Capability) -> void:
 	if tag in _locks:
-		if _locks[tag].has(cap): return
+		if _locks[tag].has(cap):
+			return
 		_locks[tag].append(cap)
 	else:
 		_locks[tag] = [cap]
 
-# 对指定的标签进行解锁。
+
+# Unlock a specified tag.
 func unblock(tag: StringName, cap: Capability) -> void:
 	if tag in _locks:
 		_locks[tag].erase(cap)
-		if not _locks[tag].is_empty(): return
+		if not _locks[tag].is_empty():
+			return
 		_locks.erase(tag)
 
-# 判断指定的标签是否加锁。
+
+# Check if a specified tag is locked.
 func has_blocked(tag: StringName) -> bool:
 	return !_locks.get(tag, []).is_empty()
+
 
 func _ready() -> void:
 	_set_capabilities_board_recursive(self)
 	if auto_track_in_debugger:
 		Capa.send_capabilityboard_data(self)
+	# Register this board with the Capa singleton
+	Capa.register_capability_board(self)
+
+
+func _exit_tree() -> void:
+	# Unregister this board from the Capa singleton
+	Capa.unregister_capability_board(self)
+
 
 func _set_capabilities_board_recursive(node: Node) -> void:
 	for i in node.get_children():
