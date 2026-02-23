@@ -1,5 +1,7 @@
 # godot-capa
 
+![icon](icon.png)
+
 A Capability-based Gameplay System plugin for Godot. Provides capability-based debugging and auxiliary tools.
 
 ## What is a Capability?
@@ -18,3 +20,5 @@ Items marked with [x] are completed, and items marked with [ ] are planned.
 - [x] Runtime debugger for the Capability system
 
 - [ ] Implementation and debugging tools for Capabilities in networked games
+
+![Debugger Panel](docs/assets/debugger.png)
