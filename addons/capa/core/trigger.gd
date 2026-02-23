@@ -40,6 +40,8 @@ func _ready() -> void:
 
 
 func _exit_tree() -> void:
+	if Engine.is_editor_hint():
+		return
 	# Unregister this trigger from the Capa singleton
 	Capa.unregister_trigger(self)
 
